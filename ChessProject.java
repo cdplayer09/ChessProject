@@ -8,12 +8,20 @@ import javax.swing.*;
 	has been coded is a white pawn...a lot done, more to do!
 */
 
+
+
+
+
 public class ChessProject extends JFrame implements MouseListener, MouseMotionListener {
     JLayeredPane layeredPane;
     JPanel chessBoard;
     JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
+    int landingX;
+    int landingY;
+    int xMovement;
+    int yMovement;
 	int startX;
 	int startY;
 	int initialX;
@@ -173,40 +181,28 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		This method is used when the Mouse is released...we need to make sure the move was valid before
 		putting the piece back on the board.
 	*/
-
-  /*
-    public void mouseReleased(MouseEvent e)
+    public void mouseReleased(MouseEvent e) {
         if(chessPiece == null) return;
 
         chessPiece.setVisible(false);
 		Boolean success =false;
-        Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+    Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
 		String tmp = chessPiece.getIcon().toString();
 		String pieceName = tmp.substring(0, (tmp.length()-4));
 		Boolean validMove = false;
 
-public void mouseReleased(MouseEvent e){
-  if (chessPiece == null) return;
+    int landingX = (e.getX()/75);
+    int landingY = (e.getY()/75);
+    int xMovement = Math.abs((e.getX()/75)-startX);
+    int yMovement = Math.abs((e.getY()/75)-startY);
+    System.out.println("__");
+      System.out.println("The piece that is being moved is : "+pieceName);
+      System.out.println("The starting coordinates are: "+"("+startX+","+startY+")");
+      System.out.println("The xMovement is : "+xMovement);
+      System.out.println("The yMovement is : "+yMovement);
+      System.out.println("The landing coordinates are : "+"("+landingX+","+landingY+")");
+      System.out.println("__");
 
-  chessPiece.setVisible(false);
-  Boolean success = false;
-  Boolean promotion = false;
-  Component c = chessBoard.findComponentAt (e.getX(), e.getY());
-  String tmp = chessPiece.getIcon().toString();
-  String pieceName = tmp.substring(0,(tmp. length()-4));
-
-  int landingX = (e.getX()/75);
-  int landingY = e.getY()/75);
-  int xMovement = Math.abs((e.getX()/75)-startX);
-  int yMovement = Math.abs((e.getY()/75)-startY);
-  System.out.println("____________________________");
-  System.out.println("The piece that is being moved is :"+pieceName)
-  System.out.println("The starting coordinates are: "+"("startX+","startY")");
-  System.out.println("The xmovement is: "+xMovement);
-  System.out.println("The ymovement is: "+yMovement);
-  System.out.println("The landing coordinates are : "+"("+landingX","+landingY")");
-  System.out.println("____________________________");
-  */
 		/*
 			The only piece that has been enabled to move is a White Pawn...but we should really have this is a separate
 			method somewhere...how would this work.
@@ -218,24 +214,7 @@ public void mouseReleased(MouseEvent e){
 			If a Pawn makes it to the top of the other side, the Pawn can turn into any other piece, for
 			demonstration purposes the Pawn here turns into a Queen.
 		*/
-
-    if(pieceName.equals("BlackQueen")){
-      validMove = true;
-    }
-  else if(pieceName.equals("BlackPawn")){
-    if(startY == 6){
-      validMove = true;
-/* if pawns on it first move, pawn can move 1 or 2 squares.*/
-
-
-
-    }
-      else{
-        validMove = false;
-      }
-
-  }
-	else if(pieceName.equals("WhitePawn")){
+		if(pieceName.equals("WhitePawn")) {
 			if(startY == 1)
 			{
 				if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
@@ -368,6 +347,5 @@ public void mouseReleased(MouseEvent e){
         frame.setResizable(true);
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
-
      }
 }
