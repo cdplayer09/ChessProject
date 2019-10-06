@@ -229,7 +229,31 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		if(pieceName.equals("BlackQueen")){
 			validMove = true;
 		}
+		else if(pieceName.equals("WhiteQueen")){
+			validMove = true;
+		}
 		
+		else if (pieceName.equals("BlackKnight")){
+			if(((xMovement == 1)&&(yMovement==2))||((xMovement ==2) &&(yMovement == 1))){
+				if(!piecePresent(e.getX(), e.getY())){
+					validMove = true;
+				}
+				else{
+					if(pieceName.contains("Black")){
+	
+						if(checkBlackOponent(e.getX(), e.getY())){
+							validMove = true;
+						}
+					}
+					else{
+						if(checkWhiteOponent(e.getX(), e.getY())){
+							validMove = true;
+						}
+					}
+				}
+				
+				}
+		}
 		
 		else if(pieceName.equals("BlackPawn")){
 			if(startY == 6){ /*Pawn is making its first move here<---
@@ -277,7 +301,37 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
 		}
 		
+		else if(pieceName.equals("WhiteKnight")){
+		/* the knight moves in an L, so if it moves on the x axis 2 times, it can only move once on the 
+		Y and viceversa we need to check for pieces on the tiles white moving*/
+		if(((xMovement == 1)&&(yMovement==2))||((xMovement ==2) &&(yMovement == 1))){
+			if(!piecePresent(e.getX(), e.getY())){
+				validMove = true;
+			}
+			else{
+				if(pieceName.contains("White")){
 
+					if(checkWhiteOponent(e.getX(), e.getY())){
+						validMove = true;
+					}
+				}
+				else{
+					if(checkBlackOponent(e.getX(), e.getY())){
+						validMove = true;
+					}
+				}
+			}
+			
+			}
+		
+
+
+
+
+
+
+			
+		}
 		else if(pieceName.equals("WhitePawn")) {
 			if(startY == 1)
 			{
