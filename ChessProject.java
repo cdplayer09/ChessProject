@@ -333,8 +333,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 				it also checks if there is a piece in that box*/
 				
 
-				///// inital start ////
-				if(((yMovement == 1)||(yMovement == 2))&&(startY > landingY)&&(xMovement == 0)){
+				///// inital start(This is just the black pawn, but inverted.) ////
+				if(((yMovement == 1)||(yMovement == 2))&&(startY < landingY)&&(xMovement == 0)){
 					if(yMovement == 2){
 						if((!piecePresent(e.getX(), e.getY()))&&(!piecePresent(e.getX(), e.getY()+75))){
 							validMove = true;
@@ -351,29 +351,29 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 				}///// inital start end//// 
 				
 				/* This is for any other move on the board*/
-				else if ((yMovement == 1)&&(startY > landingY)&&(xMovement == 1)){
+				else if ((yMovement == 1)&&(startY < landingY)&&(xMovement == 1)){
 					if(piecePresent(e.getX(), e.getY())){
-						if(checkBlackOponent(e.getX(), e.getY())){
+						if(checkWhiteOponent(e.getX(), e.getY())){
 							validMove = true;
 						}
 					}
 				}/* ends the else if condition*/			
 			}
 				else{/*This is where the pawn is making all the sub moves(all the exceptions)*/
-					if(((yMovement == 1))&&(startY > landingY)&&(xMovement == 0)){
+					if(((yMovement == 1))&&(startY < landingY)&&(xMovement == 0)){
 						if(!piecePresent(e.getX(), e.getY())){
 							validMove = true;
-							if(landingY == 0){
-								blackSuccess= true;
+							if(landingY == 7){
+								whiteSuccess= true;
 							}
 						}
 					}
-					else if ((yMovement == 1)&&(startY > landingY)&&(xMovement == 1)){
+					else if ((yMovement == 1)&&(startY < landingY)&&(xMovement == 1)){
 						if(piecePresent(e.getX(), e.getY())){
-							if(checkBlackOponent(e.getX(), e.getY())){
+							if(checkWhiteOponent(e.getX(), e.getY())){
 								validMove = true;
-								if(landingY == 0){
-									blackSuccess = true;
+								if(landingY == 7){
+									whiteSuccess = true;
 								}
 							}
 						}
