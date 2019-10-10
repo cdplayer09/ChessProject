@@ -239,9 +239,33 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 			int distance = Math.abs(startX - landingY);/*This is for side movements*/
 			if(((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))){
 				validMove = false;
-			
+				}
+			else{
+				validMove = true;
+				if(Math.abs(startX - landingX) == Math.abs(startY - landingY)){
+					if((startX - landingX < 0)&& (startY - landingY < 0)){
+						for (int i = 0; i < distance; i++){
+							if (piecePresent((initialX + (i *75)), (initialY + (i*75)))){
+								inTheWay = true;
+							}		
+						}
+					}
+					else if((startX - landingX < 0)&& (startY - landingY > 0)){
+						for (int i = 0; i < distance; i++){
+							if (piecePresent((initialX + (i *75)), (initialY + (i*75)))){
+								inTheWay = true;
+							}	
+						}
+					}
+					else if((startX - landingX < 0)&& (startY - landingY > 0)){
+						for (int i = 0; i < distance; i++){
+							if (piecePresent((initialX + (i *75)), (initialY + (i*75)))){
+								inTheWay = true;
+							}	
+						}
+					}
+				}
 			}
-
 		}
 		
 		else if (pieceName.equals("BlackKnight")){
@@ -266,7 +290,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 				}
 		}
 		
-		if(pieceName.equals("BlackPawn")){
+		else if(pieceName.equals("BlackPawn")){
 			if(startY == 6){ /*Pawn is making its first move here<---
 				/* If the pawn is on move 1, it can move 1/2 squares,
 				but it cant move after this, move up the board, in a Y direction
@@ -324,7 +348,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
 		}
 		
-		if(pieceName.equals("WhitePawn")){
+		else if(pieceName.equals("WhitePawn")){
 			if(startY == 1){ /*Pawn is making its first move here<---
 				/* If the pawn is on move 1, it can move 1/2 squares,
 				but it cant move after this, move up the board, in a Y direction
@@ -411,7 +435,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		}
 		
 		
-
+		/*This method makes the pawn change to a Queen, by saying when it lands on (7 or it lands on 1)gets to the end turn the piece to a Queen.*/
 		if (!validMove) {
 			int location = 0;
 			if (startY == 0) {
