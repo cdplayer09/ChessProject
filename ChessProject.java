@@ -161,6 +161,32 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		}
 		return oponent;
 	}
+	private Boolean checkBlackKing(int newX, int newY){
+		Boolean oponent;
+		Component c1 = chessBoard.findComponentAt(newX, newY);
+		JLabel awaitingPiece = (JLabel)c1;
+		String tmp1 = awaitingPiece.getIcon().toString();
+		if(((tmp1.contains("BlackKing")))){
+			oponent = true;
+		}
+		else{
+			oponent = false;
+		}
+		return oponent;
+	}
+	private Boolean checkWhiteKing(int newX, int newY){
+		Boolean oponent;
+		Component c1 = chessBoard.findComponentAt(newX, newY);
+		JLabel awaitingPiece = (JLabel)c1;
+		String tmp1 = awaitingPiece.getIcon().toString();
+		if(((tmp1.contains("WhiteKing")))){
+			oponent = true;
+		}
+		else{
+			oponent = false;
+		}
+		return oponent;
+	}
 	/*
 		This method is called when we press the Mouse. So we need to find out what piece we have
 		selected. We may also not have selected a piece!
@@ -230,9 +256,95 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		if(pieceName.equals("BlackQueen")){
 			validMove = true;
 		}
-		else if(pieceName.equals("WhiteQueen")){
-			validMove = true;
-		}
+		else if(pieceName.contains("BlackKing")){
+			if(((startY - landingY == 1) && (startX - landingX == 0))||//This means it can move forward,  based on the position of the piece//
+			 (startY - landingY == -1) && (startX - landingX == 0)|| //This means it can move back,  based on the position of the piece//
+			 (startY - landingY == 0) && (startX - landingX == 1)||//This means it can move left,  based on the position of the piece//
+			 (startY - landingY == 0) && (startX - landingX == -1)||//This means it can move right,  based on the position of the piece//
+			 (startX - landingX == -1) && (startY - landingY == -1)||//This means it can move Dia right down,  based on the position of the piece//
+			 (startX - landingX == 1) && (startY - landingY == 1)||//This means it can move Dia left down,  based on the position of the piece//
+			 (startX - landingX == 1) && (startY - landingY == -1)||//This means it can move Dia right up,  based on the position of the piece//
+			 (startX - landingX == -1) && (startY - landingY == 1)//This means it can move Dia left up,  based on the position of the piece//
+			 )//This means it can move right,  based on the position of the piece//
+			 {
+				
+				
+				 if((piecePresent(e.getX(), (e.getY() - 75)) && checkWhiteKing(e.getX(), e.getY() - 75))||//This makes basically a border around the piece so that it cant put itself into check or take a king.
+				 (piecePresent(e.getX(), (e.getY() + 75)) && checkWhiteKing(e.getX(), e.getY() + 75))||//It works by checking all the squares you are trying to move to for a white king in this instance.
+				 (piecePresent(e.getX()+75, (e.getY() + 75)) && checkWhiteKing(e.getX()+75, e.getY() + 75))||
+				 (piecePresent(e.getX()-75, (e.getY()  -75)) && checkWhiteKing(e.getX()-75, e.getY() -75))||
+				 (piecePresent(e.getX()+75, (e.getY()  -75)) && checkWhiteKing(e.getX()+75, e.getY() -75))||
+				 (piecePresent(e.getX()-75, (e.getY())) && checkWhiteKing(e.getX()-75, e.getY()))||
+				 (piecePresent(e.getX()+75, (e.getY())) && checkWhiteKing(e.getX()+75, e.getY()))||
+				 (piecePresent(e.getX()-75, (e.getY()+75)) && checkWhiteKing(e.getX()-75, e.getY() +75))
+				 )
+				 
+				 
+				 {
+					 validMove = false;
+				 }
+				 else{
+					if(piecePresent(e.getX(), e.getY())){
+						
+							if(checkBlackOponent(e.getX(), e.getY())){
+								validMove = true;
+							}
+							else{
+								validMove = false;
+							}				
+					}
+					else if(!piecePresent(e.getX(), e.getY())){
+						validMove = true;
+					}
+				}
+			}
+		}//This is where the black king ends
+
+		else if(pieceName.contains("WhiteKing")){
+			if(((startY - landingY == 1) && (startX - landingX == 0))||//This means it can move forward,  based on the position of the piece//
+			 (startY - landingY == -1) && (startX - landingX == 0)|| //This means it can move back,  based on the position of the piece//
+			 (startY - landingY == 0) && (startX - landingX == 1)||//This means it can move left,  based on the position of the piece//
+			 (startY - landingY == 0) && (startX - landingX == -1)||//This means it can move right,  based on the position of the piece//
+			 (startX - landingX == -1) && (startY - landingY == -1)||//This means it can move Dia right down,  based on the position of the piece//
+			 (startX - landingX == 1) && (startY - landingY == 1)||//This means it can move Dia left down,  based on the position of the piece//
+			 (startX - landingX == 1) && (startY - landingY == -1)||//This means it can move Dia right up,  based on the position of the piece//
+			 (startX - landingX == -1) && (startY - landingY == 1)//This means it can move Dia left up,  based on the position of the piece//
+			 )//This means it can move right,  based on the position of the piece//
+			 {
+				
+				
+				if((piecePresent(e.getX(), (e.getY() - 75)) && checkBlackKing(e.getX(), e.getY() - 75))||
+				(piecePresent(e.getX(), (e.getY() + 75)) && checkBlackKing(e.getX(), e.getY() + 75))||
+				(piecePresent(e.getX()+75, (e.getY() + 75)) && checkBlackKing(e.getX()+75, e.getY() + 75))||
+				(piecePresent(e.getX()-75, (e.getY()  -75)) && checkBlackKing(e.getX()-75, e.getY() -75))||
+				(piecePresent(e.getX()+75, (e.getY()  -75)) && checkBlackKing(e.getX()+75, e.getY() -75))||
+				(piecePresent(e.getX()-75, (e.getY())) && checkBlackKing(e.getX()-75, e.getY()))||
+				(piecePresent(e.getX()+75, (e.getY())) && checkBlackKing(e.getX()+75, e.getY()))||
+				(piecePresent(e.getX()-75, (e.getY()+75)) && checkBlackKing(e.getX()-75, e.getY() +75))
+				)
+				
+				
+				{
+					validMove = false;
+				}
+				else{
+				   if(piecePresent(e.getX(), e.getY())){
+					   
+						   if(checkWhiteOponent(e.getX(), e.getY())){
+							   validMove = true;
+						   }
+						   else{
+							   validMove = false;
+						   }				
+				   }
+				   else if(!piecePresent(e.getX(), e.getY())){
+					   validMove = true;
+				   }
+			   }
+		   }
+			
+		}//This is where the black king ends
+
 
 		else if(pieceName.contains("Bishop")){
 			boolean inTheWay = false;
