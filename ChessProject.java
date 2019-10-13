@@ -384,7 +384,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 						}
 					}
 					if(inTheWay){
-						validMove = false;
+						validMove = false;/*this block of code tells us that the piece can move if the way is clear, but not if the way is not clear.
+											It also specifies between white and black in order to make both pieces the work.*/
 					}
 					else{
 						if(piecePresent(e.getX(), e.getY())){
