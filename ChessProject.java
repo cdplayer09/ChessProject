@@ -571,6 +571,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 				if(((Math.abs(startX - landingX) !=0)&&(Math.abs(startY-landingY) == 0)) || ((Math.abs(startX-landingX)==0)&&(Math.abs(landingY - startY)!=0))){
 					if(Math.abs(startX-landingX)!=0){
 						int Xmovement = Math.abs(startX-landingX);
+						/*In the rook, it runs the same way as the bishop but rather than it go diaginally it will go x and y*/
 						if(startX-landingX > 0){
 							for(int i=0;i<Xmovement; i++){
 								if(piecePresent(initialX-(i*75), e.getY())){
